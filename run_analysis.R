@@ -46,15 +46,24 @@ test_activity<- y_test %>%
 activity_list<-rbind(train_activity,test_activity)
 activity_list<-rename(activity_list,"Activity"="V1")
 
+# x<-HAR_dataset
+HAR_dataset<-x
+
 # #Cleaning Column names for HAR_dataset
+
+colnames(HAR_dataset)<-gsub("BodyBody", "Body_",colnames(HAR_dataset), ignore.case = T)
 colnames(HAR_dataset)<-gsub("tBody", "TimeBody_",colnames(HAR_dataset))
-colnames(HAR_dataset)<-gsub("Acc-", "Acceleration_",colnames(HAR_dataset))
-colnames(HAR_dataset)<-gsub("Acc", "Acceleration_",colnames(HAR_dataset))
-colnames(HAR_dataset)<-gsub("mean()", "Mean",colnames(HAR_dataset))
 colnames(HAR_dataset)<-gsub("tGravity", "TimeGravity_",colnames(HAR_dataset))
-colnames(HAR_dataset)<-gsub("Jerk-", "Jerk_",colnames(HAR_dataset))
-colnames(HAR_dataset)<-gsub("Mag-", "Magnitude_",colnames(HAR_dataset))
-colnames(HAR_dataset)<-gsub("Gyro-", "Gyroscope",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Acc", "Acceleration_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Mag", "Magnitude_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Gyro", "Gyroscope_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Jerk", "Jerk_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("^f", "Frequency_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("^t", "Time_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("mean()", "Mean_",colnames(HAR_dataset), ignore.case = T)
+colnames(HAR_dataset)<-gsub("std()", "SD_",colnames(HAR_dataset), ignore.case = T)
+colnames(HAR_dataset)<-gsub("-", "",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("()", "",colnames(HAR_dataset), fixed = TRUE)
 
 
 
