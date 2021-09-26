@@ -45,6 +45,19 @@ test_activity<- y_test %>%
 #Creating a list of Activities for Entire data and adding to Data Frame
 activity_list<-rbind(train_activity,test_activity)
 activity_list<-rename(activity_list,"Activity"="V1")
+
+# #Cleaning Column names for HAR_dataset
+colnames(HAR_dataset)<-gsub("tBody", "TimeBody_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Acc-", "Acceleration_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Acc", "Acceleration_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("mean()", "Mean",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("tGravity", "TimeGravity_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Jerk-", "Jerk_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Mag-", "Magnitude_",colnames(HAR_dataset))
+colnames(HAR_dataset)<-gsub("Gyro-", "Gyroscope",colnames(HAR_dataset))
+
+
+
 HAR_dataset<- cbind(activity_list,HAR_dataset)
 
 
