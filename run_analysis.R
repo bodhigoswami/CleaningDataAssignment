@@ -22,6 +22,8 @@ library(dplyr)
 HAR_dataset<-select(my_data, contains(c("mean()" , "std()")))
 rm(my_data)
 
+
+
 #Adding Descriptive Activity Names
 activity_labels <- read.table("~/My R Work/R Studio Default/data/UCI HAR Dataset/activity_labels.txt")
 #Creating a list of Activities for Train Datas
@@ -46,8 +48,7 @@ test_activity<- y_test %>%
 activity_list<-rbind(train_activity,test_activity)
 activity_list<-rename(activity_list,"Activity"="V1")
 
-# x<-HAR_dataset
-HAR_dataset<-x
+original_columns<-c("Subject #", "Activity", names(HAR_dataset))
 
 # #Cleaning Column names for HAR_dataset
 
@@ -64,6 +65,7 @@ colnames(HAR_dataset)<-gsub("mean()", "Mean_",colnames(HAR_dataset), ignore.case
 colnames(HAR_dataset)<-gsub("std()", "SD_",colnames(HAR_dataset), ignore.case = T)
 colnames(HAR_dataset)<-gsub("-", "",colnames(HAR_dataset))
 colnames(HAR_dataset)<-gsub("()", "",colnames(HAR_dataset), fixed = TRUE)
+colnames(HAR_dataset)<-gsub("_$", "",colnames(HAR_dataset))
 
 
 
@@ -89,6 +91,10 @@ rm(y_train,y_test,train_activity,test_activity,activity_list,activity_labels)
 rm("X_train","X_test")
 rm(subject_list,subject_test,subject_train)
 
+#Snapshot of Current Environment
+save.image (file = "click.RData")
+
 #Outputs two data Set namely:
 #HAR_dataset which has all experiment values for each Activity
 #HAR_perSubject shows mean of each experiment value for subjects per Activity
+#Saves original_columns to be used to create Codebook
